@@ -6,7 +6,7 @@ export function Person(props) {
 
     const twiceMyAge = useMemo(() => {
         console.log('--- useMemo --- ', age);
-        return age * 2
+        return age * 2;
     }, [age])
 
     useEffect(

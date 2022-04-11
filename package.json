@@ -1,0 +1,20 @@
+{
+  "name": "myhooks",
+  "version": "1.0.0",
+  "description": "This is just a dummy experiment to showcase how react hooks can be implemented simply by using the scope chain.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timotheeg/myhooks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timotheeg/myhooks/issues"
+  },
+  "homepage": "https://github.com/timotheeg/myhooks#readme"
+}

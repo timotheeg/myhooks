@@ -10,6 +10,10 @@ setTimeout(() => {
 
     p2.data.setName('Tristan');
     p2.data.setAge(15);
+    p2.data.setName('Tristan1');
+    p2.data.setName('Tristan2');
+    p2.data.setName('Tristan3');
+    p2.data.setName('Tristan4');
 }, 0);
 
 setTimeout(() => {

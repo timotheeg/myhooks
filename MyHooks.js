@@ -32,12 +32,14 @@ export class Component {
         this._render = render;
         this.states = [];
         this.effects = [];
+        this.memos = [];
         manager.components.push(this);
     }
 
     render() {
         this.stateIndex = 0;
         this.effectIndex = 0;
+        this.memoIndex = 0;
         this.data = this._render();
     }
 
@@ -62,12 +64,27 @@ export class Component {
         else {
             const effect = this.effects[this.effectIndex];
             if (memoArgs.length !== effect[1].length || !memoArgs.every((val, idx) => val === effect[1][idx])) {
-                effect[0] = effectFunc;
+                this.effects[this.effectIndex] = [ effectFunc, memoArgs ];
+            }
+        }
+        return this.effects[this.effectIndex++][0];
+    }
+
+    useMemo(memoFunc, memoArgs) {
+        if (this.memos.length <= this.memoIndex) {
+            const memo = [ memoFunc(), memoArgs ];
+            this.memos.push(memo);
+        }
+        else {
+            const memo = this.memos[this.memoIndex];
+            if (memoArgs.length !== memo[1].length || !memoArgs.every((val, idx) => val === memo[1][idx])) {
+                this.memos[this.memoIndex] = [ memoFunc(), memoArgs ];
             }
         }
 
-        return this.effects[this.effectIndex++][0];
+        return this.memos[this.memoIndex++][0];
     }
+
 
     runEffects() {
         this.effects.forEach(effect => effect[0]());
@@ -84,6 +101,10 @@ export function useState(initialValue) {
 
 export function useEffect(effect, memoArgs=[]) {
     return manager.currentComponent.useEffect(effect, memoArgs);
+}
+
+export function useMemo(computer, memoArgs=[]) {
+    return manager.currentComponent.useMemo(computer, memoArgs);
 }
 
 setTimeout(() => manager.renderAll(), 0);

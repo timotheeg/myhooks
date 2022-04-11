@@ -107,4 +107,8 @@ export function useMemo(computer, memoArgs=[]) {
     return manager.currentComponent.useMemo(computer, memoArgs);
 }
 
+export function useRef(initialValue) {
+    return useMemo(() => { current: initialValue }, []);
+}
+
 setTimeout(() => manager.renderAll(), 0);
